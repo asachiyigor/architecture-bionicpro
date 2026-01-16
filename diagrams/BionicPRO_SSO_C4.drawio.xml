@@ -1,0 +1,112 @@
+<mxfile host="app.diagrams.net" modified="2024-01-15T12:00:00.000Z" agent="Mozilla/5.0" version="21.0.0">
+  <diagram name="C4 Container Diagram - BionicPRO SSO" id="c4-bionicpro-sso">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- System Boundary - BionicPRO -->
+        <mxCell id="system-boundary" value="BionicPRO System" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;strokeWidth=2;dashed=1;verticalAlign=top;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="200" width="950" height="500" as="geometry"/>
+        </mxCell>
+
+        <!-- User -->
+        <mxCell id="user" value="&lt;b&gt;User&lt;/b&gt;&lt;br&gt;[Person]&lt;br&gt;&lt;br&gt;Prosthetic user who&lt;br&gt;uses mobile app" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427B;fontColor=#ffffff;strokeColor=#073B6D;align=center;" vertex="1" parent="1">
+          <mxGeometry x="480" y="40" width="140" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Mobile App / Frontend -->
+        <mxCell id="frontend" value="&lt;b&gt;Frontend App&lt;/b&gt;&lt;br&gt;[Container: React]&lt;br&gt;&lt;br&gt;Web/Mobile application&lt;br&gt;Uses session cookies&lt;br&gt;No direct token access" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#3C7BB0;align=center;" vertex="1" parent="1">
+          <mxGeometry x="480" y="240" width="160" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- BionicPRO Auth Service (NEW) -->
+        <mxCell id="auth-service" value="&lt;b&gt;bionicpro-auth&lt;/b&gt;&lt;br&gt;[Container: Python/FastAPI]&lt;br&gt;&lt;br&gt;Authentication service&lt;br&gt;- PKCE flow handling&lt;br&gt;- Session management&lt;br&gt;- Token storage&lt;br&gt;- Session rotation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#3C7BB0;align=center;" vertex="1" parent="1">
+          <mxGeometry x="200" y="420" width="180" height="140" as="geometry"/>
+        </mxCell>
+
+        <!-- Reports API -->
+        <mxCell id="reports-api" value="&lt;b&gt;Reports API&lt;/b&gt;&lt;br&gt;[Container: Python/FastAPI]&lt;br&gt;&lt;br&gt;API for generating&lt;br&gt;user reports from&lt;br&gt;OLAP database" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#3C7BB0;align=center;" vertex="1" parent="1">
+          <mxGeometry x="480" y="420" width="160" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Redis (Session Storage) -->
+        <mxCell id="redis" value="&lt;b&gt;Redis&lt;/b&gt;&lt;br&gt;[Container: Redis]&lt;br&gt;&lt;br&gt;Session storage&lt;br&gt;Encrypted tokens&lt;br&gt;Session-token binding" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#3C7BB0;align=center;" vertex="1" parent="1">
+          <mxGeometry x="200" y="600" width="160" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Keycloak -->
+        <mxCell id="keycloak" value="&lt;b&gt;Keycloak&lt;/b&gt;&lt;br&gt;[Container: Keycloak]&lt;br&gt;&lt;br&gt;Identity Provider&lt;br&gt;- OIDC/OAuth 2.0&lt;br&gt;- PKCE support&lt;br&gt;- MFA (OTP)&lt;br&gt;- LDAP integration&lt;br&gt;- Identity Brokering" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#ffffff;strokeColor=#666666;align=center;" vertex="1" parent="1">
+          <mxGeometry x="760" y="240" width="180" height="140" as="geometry"/>
+        </mxCell>
+
+        <!-- LDAP Server -->
+        <mxCell id="ldap" value="&lt;b&gt;OpenLDAP&lt;/b&gt;&lt;br&gt;[Container: OpenLDAP]&lt;br&gt;&lt;br&gt;External user directory&lt;br&gt;for international&lt;br&gt;BionicPRO offices" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#ffffff;strokeColor=#666666;align=center;" vertex="1" parent="1">
+          <mxGeometry x="760" y="420" width="160" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- External: Yandex ID -->
+        <mxCell id="yandex-id" value="&lt;b&gt;Yandex ID&lt;/b&gt;&lt;br&gt;[External System]&lt;br&gt;&lt;br&gt;External Identity Provider&lt;br&gt;OAuth 2.0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#ffffff;strokeColor=#666666;align=center;" vertex="1" parent="1">
+          <mxGeometry x="760" y="560" width="160" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- PostgreSQL (Keycloak DB) -->
+        <mxCell id="keycloak-db" value="&lt;b&gt;Keycloak DB&lt;/b&gt;&lt;br&gt;[Container: PostgreSQL]&lt;br&gt;&lt;br&gt;Stores realm config,&lt;br&gt;users, sessions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#3C7BB0;align=center;" vertex="1" parent="1">
+          <mxGeometry x="960" y="300" width="140" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows / Relationships -->
+        <!-- User -> Frontend -->
+        <mxCell id="arrow1" value="Uses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="user" target="frontend">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Frontend -> Auth Service -->
+        <mxCell id="arrow2" value="Login/Logout&lt;br&gt;Session Cookie" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="frontend" target="auth-service">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Frontend -> Reports API -->
+        <mxCell id="arrow3" value="Get Reports&lt;br&gt;Session Cookie" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="frontend" target="reports-api">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Auth Service -> Keycloak -->
+        <mxCell id="arrow4" value="OIDC/OAuth 2.0&lt;br&gt;PKCE flow" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="auth-service" target="keycloak">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Auth Service -> Redis -->
+        <mxCell id="arrow5" value="Store tokens&lt;br&gt;Session binding" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="auth-service" target="redis">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Keycloak -> LDAP -->
+        <mxCell id="arrow6" value="User Federation&lt;br&gt;LDAP sync" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="keycloak" target="ldap">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Keycloak -> Yandex ID -->
+        <mxCell id="arrow7" value="Identity Brokering&lt;br&gt;OAuth 2.0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="keycloak" target="yandex-id">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Keycloak -> Keycloak DB -->
+        <mxCell id="arrow8" value="Read/Write" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="keycloak" target="keycloak-db">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Reports API -> Auth Service (token validation) -->
+        <mxCell id="arrow9" value="Validate session" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#333333;strokeWidth=2;dashed=1;" edge="1" parent="1" source="reports-api" target="auth-service">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="legend" value="&lt;b&gt;C4 Container Diagram Legend&lt;/b&gt;&lt;br&gt;&lt;br&gt;Blue: Internal containers&lt;br&gt;Gray: External systems" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="40" width="200" height="100" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
